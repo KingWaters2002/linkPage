@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receber Parâmetros</title>
+    <script>
+        // Função para capturar os parâmetros da URL
+        function getQueryParams() {
+            const params = {};
+            const queryString = window.location.search.substring(1);
+            const pairs = queryString.split("&");
+            pairs.forEach(pair => {
+                const [key, value] = pair.split("=");
+                params[decodeURIComponent(key)] = decodeURIComponent(value);
+            });
+            return params;
+        }
+
+        // Exemplo: Exibindo o parâmetro na página
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = getQueryParams();
+            if (params.param) {
+                document.getElementById("output").textContent = `Parâmetro recebido: ${params.param}`;
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Recebendo Parâmetros</h1>
+    <p id="output">Nenhum parâmetro recebido ainda.</p>
+</body>
+</html>
