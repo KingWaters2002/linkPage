@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receber Parâmetros 3</title>
+    <title>Explorador de arquivos</title>
     <script>
         // Função para capturar os parâmetros da URL
         function getQueryParams() {
@@ -12,7 +12,9 @@
             const pairs = queryString.split("&");
             pairs.forEach(pair => {
                 const [key, value] = pair.split("=");
-                params[decodeURIComponent(key)] = decodeURIComponent(value);
+                if (key && value) {
+                    params[decodeURIComponent(key)] = decodeURIComponent(value);
+                }
             });
             return params;
         }
@@ -21,15 +23,24 @@
         document.addEventListener("DOMContentLoaded", () => {
             const params = getQueryParams();
             if (params.param) {
+                // Atualiza o texto da página com o valor do parâmetro
                 document.getElementById("output").textContent = `Parâmetro recebido: ${params.param}`;
-                
+
+                // Atualiza o link para incluir o valor do parâmetro
+                const folderLink = `file://///cristina/ArmazenamentoHD/Clientes/${params.param}/Fiscal/Arquivos%20Mensais`;
+                document.getElementById("folder-link").href = folderLink;
+                document.getElementById("folder-link").textContent = `Link para a pasta de ${params.param}`;
+            } else {
+                document.getElementById("output").textContent = 'Nenhum parâmetro recebido.';
             }
         });
     </script>
-    <a href="file:///C:\Users\Waters\Desktop\Sol Sistemas\FormulasGooglePlanilhas\Arquivos Mensais\abrirPasta.bat" download>Executar .bat</a>
 </head>
 <body>
     <h1>Recebendo Parâmetros</h1>
     <p id="output">Nenhum parâmetro recebido ainda.</p>
+    
+    <!-- Link para a pasta de rede com ID dinâmico -->
+    <a id="folder-link" href="#" target="_blank">Link para a pasta</a>
 </body>
 </html>
